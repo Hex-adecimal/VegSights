@@ -5,6 +5,17 @@
 //  Created by Luigi Penza on 21/02/24.
 //
 
+//TODO: ContentView
+//TODO: ModalView
+//TODO: ScanView
+//TODO: ListDetailView
+
+//TODO: Model per le liste (swiftdata?)
+
+//TODO: Classe per comprensione del testo
+
+//TODO: Classe per vedere se quello che lo letto sta in una lista + funzionamento?
+
 import SwiftUI
 
 @main
