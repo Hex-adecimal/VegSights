@@ -8,23 +8,50 @@ import SwiftUI
 import SwiftData
 
 struct ModalView: View {
+    @State private var isEditMode = false
+    @StateObject private var listModel = ListModel()
+    @State private var isAddListSheetPresented = false
+    @State private var newListName = ""
     
     var body: some View {
-        NavigationStack {
-            VStack{
-                Text("modalview")
-            }
-            .navigationTitle("My Lists")
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Image(systemName: "gear")
+        NavigationView {
+            VStack {
+                List {
+                    ForEach(listModel.lists, id: \.self) { list in
+                        NavigationLink(destination: ListItemView(listName: list, itemModel: ItemModel())) {
+                            Text(list)
+                        }
+                    }
+                    .onDelete { indexSet in
+                        self.listModel.lists.remove(atOffsets: indexSet)
+                    }
+                    .onMove { indices, newOffset in
+                        self.listModel.lists.move(fromOffsets: indices, toOffset: newOffset)
+                    }
                 }
             }
+            .navigationBarTitle("My Lists")
+            .navigationBarItems(
+                leading: Button(action: {
+                    // Action for edit button
+                    self.isEditMode.toggle()
+                }) {
+                    Text("Edit")
+                },
+                trailing: Button(action: {
+                    isAddListSheetPresented = true
+                }) {
+                    Image(systemName: "plus")
+                }
+            )
+            .sheet(isPresented: $isAddListSheetPresented, content: {
+                AddListView(isPresented: $isAddListSheetPresented, newListName: $newListName, listModel: listModel)
+            })
         }
-        
-        //.toolbar(isFullScreen ? .visible : .hidden, for: .navigationBar)
     }
 }
+
+
 
 #Preview {
     ModalView()

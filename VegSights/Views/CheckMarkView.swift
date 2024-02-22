@@ -7,12 +7,36 @@
 
 import SwiftUI
 
-struct CheckMarkView: View {
+
+struct CheckmarkView: View {
+    @Binding var isChecked: Bool
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Circle()
+                .fill(isChecked ? Color.blue : Color.clear) // Change the color based on the isChecked state
+                .frame(width: 30, height: 30)
+                .overlay(
+                    Circle()
+                        .stroke(Color.blue, lineWidth: 2)
+                )
+            
+            if isChecked {
+                Image(systemName: "checkmark")
+                    .foregroundColor(.white)
+            }
+        }
+        .onTapGesture {
+            isChecked.toggle()
+        }
     }
 }
 
-#Preview {
-    CheckMarkView()
+
+
+struct CheckmarkView_Previews: PreviewProvider {
+    static var previews: some View {
+        CheckmarkView(isChecked: .constant(false))
+    }
 }
+
