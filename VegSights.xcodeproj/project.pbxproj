@@ -14,11 +14,9 @@
 		447AB8B12B873E5F0027EDC1 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8B02B873E5F0027EDC1 /* ModalView.swift */; };
 		447AB8B32B873E690027EDC1 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8B22B873E690027EDC1 /* ScanView.swift */; };
 		447AB8B92B873F550027EDC1 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8B82B873F550027EDC1 /* ListModel.swift */; };
-		447AB8BB2B873FE80027EDC1 /* TextRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8BA2B873FE80027EDC1 /* TextRecognition.swift */; };
 		E6FB450E2B8747A4000D3559 /* AddListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB450D2B8747A4000D3559 /* AddListView.swift */; };
 		E6FB45102B8747D3000D3559 /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB450F2B8747D3000D3559 /* ListItemView.swift */; };
 		E6FB45122B87480D000D3559 /* CheckMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB45112B87480D000D3559 /* CheckMarkView.swift */; };
-		E6FB45142B874833000D3559 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB45132B874833000D3559 /* ItemModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,11 +28,9 @@
 		447AB8B02B873E5F0027EDC1 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		447AB8B22B873E690027EDC1 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
 		447AB8B82B873F550027EDC1 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
-		447AB8BA2B873FE80027EDC1 /* TextRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognition.swift; sourceTree = "<group>"; };
 		E6FB450D2B8747A4000D3559 /* AddListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListView.swift; sourceTree = "<group>"; };
 		E6FB450F2B8747D3000D3559 /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
 		E6FB45112B87480D000D3559 /* CheckMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkView.swift; sourceTree = "<group>"; };
-		E6FB45132B874833000D3559 /* ItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +97,6 @@
 			isa = PBXGroup;
 			children = (
 				447AB8B82B873F550027EDC1 /* ListModel.swift */,
-				E6FB45132B874833000D3559 /* ItemModel.swift */,
-				447AB8BA2B873FE80027EDC1 /* TextRecognition.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -180,8 +174,6 @@
 				E6FB45122B87480D000D3559 /* CheckMarkView.swift in Sources */,
 				E6FB45102B8747D3000D3559 /* ListItemView.swift in Sources */,
 				447AB8B12B873E5F0027EDC1 /* ModalView.swift in Sources */,
-				447AB8BB2B873FE80027EDC1 /* TextRecognition.swift in Sources */,
-				E6FB45142B874833000D3559 /* ItemModel.swift in Sources */,
 				447AB8B32B873E690027EDC1 /* ScanView.swift in Sources */,
 				E6FB450E2B8747A4000D3559 /* AddListView.swift in Sources */,
 				447AB8B92B873F550027EDC1 /* ListModel.swift in Sources */,
