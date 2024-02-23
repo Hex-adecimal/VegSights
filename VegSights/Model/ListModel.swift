@@ -6,16 +6,15 @@
 //
 
 import Foundation
+import SwiftData
 
-class ListModel: ObservableObject {
-    @Published var lists: [String]
+@Model
+class ListModel{
+    var name: String
+    var items: [String]
     
-    init() {
-        // Initialize with sample data
-        self.lists = ["List 1", "List 2", "List 3"]
-    }
-    
-    func addList(_ newList: String) {
-        lists.append(newList)
+    init(name: String, items: [String]) {
+        self.name = name
+        self.items = items
     }
 }

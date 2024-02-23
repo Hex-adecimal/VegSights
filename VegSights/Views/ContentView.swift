@@ -27,6 +27,12 @@ enum ButtonAnimationPhase: CaseIterable {
 }
 
 struct ContentView: View {
+    //@Query var lists: [ListModel]
+    
+    //@Environment(\.modelContext) var context
+    // context.insert(ListModel(name: "", items: ["", ""])
+    
+    
     
     private let modalHeight: CGFloat = 100.0
     

@@ -17,12 +17,13 @@
 //TODO: Classe per vedere se quello che lo letto sta in una lista + funzionamento?
 
 import SwiftUI
+import SwiftData
 
 @main
 struct VegSightsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }
+        }.modelContainer(for: ListModel.self)
     }
 }
