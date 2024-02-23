@@ -18,9 +18,26 @@ struct ModalView: View {
             VStack {
                 List {
                     ForEach(listModel.lists, id: \.self) { list in
-                        NavigationLink(destination: ListItemView(listName: list, itemModel: ItemModel())) {
-                            Text(list)
-                        }
+                        //Section {
+                            VStack(alignment: .leading){
+                                HStack {
+                                    NavigationLink(destination: ListItemView(listName: list, itemModel: ItemModel())) {
+                                        Text(list)
+                                        Spacer(minLength: 198)
+                                        Text("monday")
+                                            .font(.subheadline)
+                                            .foregroundStyle(.gray)
+                                            .fontWeight(.light)
+                                            
+                                            
+                                    }
+                                }
+                                Text("Subtitle")
+                                    .foregroundStyle(.gray)
+                                    .font(.subheadline)
+                                    .padding(-2)
+                            }
+                        //}
                     }
                     .onDelete { indexSet in
                         self.listModel.lists.remove(atOffsets: indexSet)
@@ -30,7 +47,7 @@ struct ModalView: View {
                     }
                 }
             }
-            .navigationBarTitle("My Lists")
+            .navigationBarTitle("Shopping Lists")
             .navigationBarItems(
                 leading: Button(action: {
                     // Action for edit button

@@ -28,9 +28,6 @@ enum ButtonAnimationPhase: CaseIterable {
 
 struct ContentView: View {
     
-    @State private var isListening: Bool = false
-    @State private var textToggle: Bool = false
-    
     private let modalHeight: CGFloat = 100.0
     
     var body: some View {
@@ -54,10 +51,6 @@ struct ContentView: View {
                 //MARK: SHAZAM BUTTON
                 CircleAndLinks()
                     .frame(width: 200, height: 200)
-                //                            .onTapGesture {
-                //
-                //                            }
-                //MARK: Button Animation
                     .phaseAnimator(ButtonAnimationPhase.allCases) { content, phase in
                         content
                             .scaleEffect(phase.scale)

@@ -15,8 +15,9 @@ struct AddListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Enter list name", text: $newListName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Title", text: $newListName)
+                   // .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(DefaultTextFieldStyle())
                     .padding()
                 
                 Spacer()
