@@ -50,11 +50,11 @@ struct ScanView: View {
 
                     // Create a new image-request handler.
                     let requestHandler = VNImageRequestHandler(cgImage: cgImage)
-
+                    
 
                     // Create a new request to recognize text.
                     let request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-
+                   // request.recognitionLevel = .fast
 
                     do {
                         // Perform the text-recognition request.
