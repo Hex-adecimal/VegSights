@@ -7,11 +7,26 @@
 
 import SwiftUI
 import PhotosUI
+import Vision
 
 struct ScanView: View {
     @State private var showCamera = false
     @State private var selectedImage: UIImage?
     @State var image: UIImage?
+    
+    func recognizeTextHandler(request: VNRequest, error: Error?) {
+        guard let observations =
+                request.results as? [VNRecognizedTextObservation] else {
+            return
+        }
+        let recognizedStrings = observations.compactMap { observation in
+            // Return the string of the top VNRecognizedText instance.
+            return observation.topCandidates(1).first?.string
+        }
+        
+        // Process the recognized strings.
+        print(recognizedStrings)
+    }
     
     var body: some View {
         ZStack {
@@ -28,6 +43,25 @@ struct ScanView: View {
                 
                 Button("Open camera") {
                     self.showCamera.toggle()
+                    
+                    // Get the CGImage on which to perform requests.
+                    guard let cgImage = selectedImage?.cgImage else { return }
+
+
+                    // Create a new image-request handler.
+                    let requestHandler = VNImageRequestHandler(cgImage: cgImage)
+
+
+                    // Create a new request to recognize text.
+                    let request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
+
+
+                    do {
+                        // Perform the text-recognition request.
+                        try requestHandler.perform([request])
+                    } catch {
+                        print("Unable to perform the requests: \(error).")
+                    }
                 }
                 .fullScreenCover(isPresented: self.$showCamera) {
                     accessCameraView(selectedImage: self.$selectedImage)
