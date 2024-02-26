@@ -35,36 +35,42 @@ struct ContentView: View {
     private let modalHeight: CGFloat = 100.0
     
     var body: some View {
-        ZStack {
+//        ZStack {
             //MARK: Background
-            Rectangle()
-                .ignoresSafeArea()
-                .foregroundStyle(.linearGradient(colors: [.orange, .yellow], startPoint: .top, endPoint: .bottom))
+//            Rectangle()
+//                .ignoresSafeArea()
+//                .foregroundStyle(.linearGradient(colors: [.orange, .yellow], startPoint: .top, endPoint: .bottom))
+//            
+//            
+//            Text("Ciao")
             
-            
-            Text("Ciao")
-            
-            VStack {
-                //MARK: Label
-                Text("Tap to scan")
-                // Vision
-                    .bold()
-                    .foregroundStyle(.black)
-                    .font(.title2)
-                // Accessibility
-                    .accessibilityHidden(true)
-                // Animation
-                
-                //MARK: SHAZAM BUTTON
-                CircleAndLinks()
-                    .frame(width: 200, height: 200)
-                    .phaseAnimator(ButtonAnimationPhase.allCases) { content, phase in
-                        content
-                            .scaleEffect(phase.scale)
-                    } animation: { phase in
-                        phase.animation
-                    }
-                
+            NavigationStack {
+                VStack {
+                    //MARK: Label
+                    Text("Tap to scan")
+                    // Vision
+                        .bold()
+                        .foregroundStyle(.black)
+                        .font(.title2)
+                    // Accessibility
+                        .accessibilityHidden(true)
+                    // Animation
+                    
+                    //MARK: SHAZAM BUTTON
+                    CircleAndLinks()
+                        .frame(width: 200, height: 200)
+                        .phaseAnimator(ButtonAnimationPhase.allCases) { content, phase in
+                            content
+                                .scaleEffect(phase.scale)
+                        } animation: { phase in
+                            phase.animation
+                        }
+                    
+                    NavigationLink(destination: ScanView()) {
+                                       Text("ScanView")
+                                   }
+                    
+                }
             }
         }
         //                .sheet(isPresented: .constant(true)) {
@@ -75,7 +81,7 @@ struct ContentView: View {
         //                    .interactiveDismissDisabled(true)
         //                    .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
     }
-}
+
 //    }
 
 
