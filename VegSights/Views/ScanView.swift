@@ -12,27 +12,32 @@ struct ScanView: View {
     @State private var showCamera = false
     @State private var selectedImage: UIImage?
     @State var image: UIImage?
+    
     var body: some View {
-        VStack {
-            if let selectedImage{
-                Image(uiImage: selectedImage)
-                    .resizable()
-                    .scaledToFit()
-            }
+        ZStack {
+            Rectangle()
+                .ignoresSafeArea()
+                .foregroundStyle(.black)
             
-            Button("Open camera") {
-                self.showCamera.toggle()
-            }
-            .fullScreenCover(isPresented: self.$showCamera) {
-                accessCameraView(selectedImage: self.$selectedImage)
+            VStack {
+                if let selectedImage{
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .scaledToFit()
+                }
+                
+                Button("Open camera") {
+                    self.showCamera.toggle()
+                }
+                .fullScreenCover(isPresented: self.$showCamera) {
+                    accessCameraView(selectedImage: self.$selectedImage)
+                }
             }
         }
     }
 }
 
-
 struct accessCameraView: UIViewControllerRepresentable {
-    
     @Binding var selectedImage: UIImage?
     @Environment(\.presentationMode) var isPresented
     
@@ -47,7 +52,7 @@ struct accessCameraView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
         
     }
-
+    
     func makeCoordinator() -> Coordinator {
         return Coordinator(picker: self)
     }
