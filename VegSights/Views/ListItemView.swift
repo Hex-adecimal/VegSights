@@ -5,69 +5,64 @@
 //  Created by Benedetta Beatrice on 22/02/24.
 //
 
-
 import SwiftUI
+import SwiftData
 
-//struct ListItemView: View {
-//    var listName: String
-//    @State private var newItemName = ""
-//    @ObservedObject var itemModel: ItemModel
-//    
-//    var body: some View {
-//        VStack {
-//            List {
-//                ForEach(itemModel.items[listName] ?? [], id: \.self) { item in
-//                    HStack {
-//                        CheckmarkView(isChecked: .init(get: {
-//                            itemModel.items[listName]?.contains(item) ?? false
-//                        }, set: { newValue in
-//                            if newValue {
-//                                itemModel.items[listName]?.append(item)
-//                            } else {
-//                                if let index = itemModel.items[listName]?.firstIndex(of: item) {
-//                                    itemModel.items[listName]?.remove(at: index)
-//                                }
-//                            }
-//                        }))
-//                        Text(item)
-//                            .strikethrough(itemModel.items[listName]?.contains(item) ?? false)
-//                        Spacer()
-//                        Image(systemName: "trash")
-//                            .onTapGesture {
-//                                // Delete the item
-//                                if let index = itemModel.items[listName]?.firstIndex(of: item) {
-//                                    itemModel.items[listName]?.remove(at: index)
-//                                }
-//                            }
-//                    }
-//                }
-//            }
-//            
-//            HStack {
-//                TextField("Enter item name", text: $newItemName)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//                
-//                Button(action: {
-//                    if !newItemName.isEmpty {
-//                        itemModel.addItem(newItemName, toList: listName)
-//                        newItemName = ""
-//                    }
-//                }) {
-//                    Text("Add")
-//                }
-//            }
-//            .padding()
-//        }
-//        .navigationBarTitle(listName)
-//    }
-//}
-//
-//
+struct ListItemView: View {
+    @Query var lists: [ListModel]
+    @State private var newItemName = ""
+    
+    var body: some View {
+        VStack {
+            List {
+                ForEach(lists, id: \.self) { listModel in
+                    VStack {
+                        Text(listModel.name)
+                            .font(.headline)
+                        ForEach(listModel.items, id: \.self) { item in
+                            HStack {
+                                Text(item)
+                                Spacer()
+                                Image(systemName: "trash")
+                                    .onTapGesture {
+                                        if let index = listModel.items.firstIndex(of: item) {
+                                            listModel.items.remove(at: index)
+                                        }
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            HStack {
+                TextField("Enter item name", text: $newItemName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                Button(action: {
+                    if !newItemName.isEmpty {
+                        // Assuming the first list in lists is the one to add the item to
+                        if let firstList = lists.first {
+                            firstList.items.append(newItemName)
+                            newItemName = ""
+                        }
+                    }
+                }) {
+                    Text("Add")
+                }
+            }
+            .padding()
+        }
+    }
+}
+
 //struct ListItemView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        let itemModel = ItemModel() // Create an instance of ItemModel
-//        return ListItemView(listName: "List 1", itemModel: itemModel)
+//        let lists: [ListModel] = [] // Provide lists here
+//        return ListItemView(lists: lists)
 //    }
 //}
-//
 
+#Preview {
+    ListItemView()
+}
