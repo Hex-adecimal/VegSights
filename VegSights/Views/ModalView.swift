@@ -7,73 +7,25 @@
 import SwiftUI
 import SwiftData
 
-//struct ModalView: View {
-//    @State private var isEditMode = false
-//    @Query var lists: [ListModel]
-//    //@StateObject private var listModel = ListModel()
-//    @State private var isAddListSheetPresented = false
-//    @State private var newListName = ""
-//    
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                List {
-//                    ForEach(lists) { list in
-//                        Text(list.name)
-//                    }
-//                    /*ForEach(listModel.lists, id: \.self) { list in
-//                        //Section {
-//                            VStack(alignment: .leading){
-//                                HStack {
-//                                    NavigationLink(destination: ListItemView(listName: list, itemModel: ItemModel())) {
-//                                        Text(list)
-//                                        Spacer(minLength: 198)
-//                                        Text("monday")
-//                                            .font(.subheadline)
-//                                            .foregroundStyle(.gray)
-//                                            .fontWeight(.light)
-//                                            
-//                                            
-//                                    }
-//                                }
-//                                Text("Subtitle")
-//                                    .foregroundStyle(.gray)
-//                                    .font(.subheadline)
-//                                    .padding(-2)
-//                            }
-//                        //}
-//                    }
-//                    .onDelete { indexSet in
-//                        self.listModel.lists.remove(atOffsets: indexSet)
-//                    }
-//                    .onMove { indices, newOffset in
-//                        self.listModel.lists.move(fromOffsets: indices, toOffset: newOffset)
-//                    }*/
-//                }
-//            }
-//            .navigationBarTitle("Shopping Lists")
-//            .navigationBarItems(
-//                leading: Button(action: {
-//                    // Action for edit button
-//                    self.isEditMode.toggle()
-//                }) {
-//                    Text("Edit")
-//                },
-//                trailing: Button(action: {
-//                    isAddListSheetPresented = true
-//                }) {
-//                    Image(systemName: "plus")
-//                }
-//            )
-//            .sheet(isPresented: $isAddListSheetPresented, content: {
-//                AddListView(isPresented: $isAddListSheetPresented, newListName: $newListName, listModel: listModel)
-//            })
-//        }
-//    }
-//}
-
-
-//
-//#Preview {
-//    ModalView()
+struct ModalView: View {
+    @Query var lists: [ListModel]
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(lists) { list in
+//                    NavigationLink(destination: ListItemView(listModel: list)) {
+                        VStack(alignment: .leading) {
+                            Text(list.name)
+                                .font(.headline)
+                            Text("Subtitle")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle("Shopping Lists")
+        }
+    }
 //}
