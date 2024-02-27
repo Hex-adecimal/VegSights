@@ -1,56 +1,58 @@
-////
-////  AddListView.swift
-////  VegSights
-////
-////  Created by Benedetta Beatrice on 22/02/24.
-////
 //
-//import SwiftUI
+//  AddListView.swift
+//  VegSights
 //
-//struct AddListView: View {
-//    @Binding var isPresented: Bool
-//    @Binding var newListName: String
-//    @ObservedObject var listModel: ListModel
-//    
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                TextField("Title", text: $newListName)
-//                   // .textFieldStyle(RoundedBorderTextFieldStyle())
-//                    .textFieldStyle(DefaultTextFieldStyle())
-//                    .padding()
-//                
-//                Spacer()
-//                
-//                HStack {
-//                    Button("Cancel") {
-//                        isPresented = false
-//                    }
-//                    .padding()
-//                    
-//                    Spacer()
-//                    
-//                    Button("Done") {
-//                        isPresented = false
-//                        listModel.addList(newListName)
-//                        newListName = ""
-//                    }
-//                    .padding()
-//                }
-//            }
-//            .navigationBarTitle("Add List")
-//            .navigationBarItems(trailing: Button("Cancel") {
-//                isPresented = false
-//            })
-//        }
-//    }
-//}
+//  Created by Benedetta Beatrice on 22/02/24.
 //
-//struct AddListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let listModel = ListModel()
-//        return AddListView(isPresented: .constant(true), newListName: .constant(""), listModel: listModel)
-//    }
-//}
-//
-//
+
+import SwiftUI
+import SwiftData
+
+struct AddListView: View {
+    @State var isPresented: Bool = true
+    @State var newListName: String = ""
+    @State var newitems: [String] = ["", ""]
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.presentationMode) private var presentationMode
+    
+    var body: some View {
+        NavigationStack {
+            ScrollView(.vertical) {
+                VStack {
+                    TextField("Title", text: $newListName)
+                    // .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .textFieldStyle(DefaultTextFieldStyle())
+                        .padding()
+                    TextField("Items", text: $newitems[0])
+                        .textFieldStyle(DefaultTextFieldStyle())
+                        .padding()
+                }
+                .toolbar {
+                    ToolbarItemGroup(placement: .topBarLeading) {
+                        Button("add", systemImage: "chevron.left") {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                        
+                        Text("Create a list")
+                            .fontWeight(.bold)
+                            .font(.title)
+                    }
+                   
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Done") {
+                            modelContext.insert(ListModel(name: newListName, items: newitems))
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                    
+                   
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    AddListView()
+}
+

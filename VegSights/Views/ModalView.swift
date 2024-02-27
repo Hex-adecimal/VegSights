@@ -8,74 +8,71 @@ import SwiftUI
 import SwiftData
 
 struct ModalView: View {
-    //    @State private var isEditMode = false
-    @Query var lists: [ListModel]
     @Environment(\.modelContext) private var modelContext
-    //    //@StateObject private var listModel = ListModel()
-    //    @State private var isAddListSheetPresented = false
-    //    @State private var newListName = ""
-    //
+    
+    @Query var lists: [ListModel]
+    
+    @State var showAddView: Bool = false
+    
     var body: some View {
-        Text("ciao")
-        NavigationView {
-            VStack {
-                //                List {
-                //                    ForEach(lists) { list in
-                //                        Text(list.name)
-                //                    }
-                //                    /*ForEach(listModel.lists, id: \.self) { list in
-                //                        //Section {
-                //                            VStack(alignment: .leading){
-                //                                HStack {
-                //                                    NavigationLink(destination: ListItemView(listName: list, itemModel: ItemModel())) {
-                //                                        Text(list)
-                //                                        Spacer(minLength: 198)
-                //                                        Text("monday")
-                //                                            .font(.subheadline)
-                //                                            .foregroundStyle(.gray)
-                //                                            .fontWeight(.light)
-                //
-                //
-                //                                    }
-                //                                }
-                //                                Text("Subtitle")
-                //                                    .foregroundStyle(.gray)
-                //                                    .font(.subheadline)
-                //                                    .padding(-2)
-                //                            }
-                //                        //}
-                //                    }
-                //                    .onDelete { indexSet in
-                //                        self.listModel.lists.remove(atOffsets: indexSet)
-                //                    }
-                //                    .onMove { indices, newOffset in
-                //                        self.listModel.lists.move(fromOffsets: indices, toOffset: newOffset)
-                //                    }*/
+        NavigationStack {
+            ScrollView(.vertical) {
+                if lists.isEmpty {
+                    Button("Sample data") {
+                        modelContext.insert(ListModel(name: "Grocery Shopping", items: ["Apple", "Banana", "Mango "]))
+                        modelContext.insert(ListModel(name: "Personal List", items: ["1", "2", "3"]))
+                        modelContext.insert(ListModel(name: "Dinner With Friends", items: ["1", "2", "3"]))
+                    }
+                    Text("Create your personal lists. \nTap the plus button to get started.")
+                } else {
+                    ForEach(lists) { list in
+                        NavigationLink {
+                            ListItemView()
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                    .foregroundStyle(.gray)
+                                    .frame(width: 350, height: 80, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                
+                                HStack {
+                                    Text(list.name)
+                                        .foregroundStyle(.black)
+                                    Text(list.date.formatted())
+                                        .foregroundStyle(.black)
+                                    Image(systemName: "chevron.right")
+                                        .foregroundStyle(.accent)
+                                        .padding(.trailing, 0)
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("My Lists")
+                        .fontWeight(.bold)
+                        .font(.title)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("add", systemImage: "plus") {
+                        showAddView.toggle()
+                    }.sheet(isPresented: $showAddView) {
+                        AddListView()
+                    }
+                }
             }
         }
-        //            .navigationBarTitle("Shopping Lists")
-        //            .navigationBarItems(
-        //                leading: Button(action: {
-        //                    // Action for edit button
-        //                    self.isEditMode.toggle()
-        //                }) {
-        //                    Text("Edit")
-        //                },
-        //                trailing: Button(action: {
-        //                    isAddListSheetPresented = true
-        //                }) {
-        //                    Image(systemName: "plus")
-        //                }
-        //            )
-        //            .sheet(isPresented: $isAddListSheetPresented, content: {
-        //                AddListView(isPresented: $isAddListSheetPresented, newListName: $newListName, listModel: listModel)
-        //            })
-        //        }
     }
 }
 
 
-
 #Preview {
-    ModalView()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: ListModel.self, configurations: config)
+    
+    return ModalView()
+        .modelContainer(container)
 }

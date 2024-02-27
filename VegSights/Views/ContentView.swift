@@ -24,12 +24,12 @@ struct ContentView: View {
                     Text("Game app for team building")
                         .padding(50)
                 }
-//                .sheet(isPresented: .constant(true)) {
-//                    ModalView()
-//                        .presentationDetents([.height(modalHeight), .large])
-//                        .interactiveDismissDisabled(true)
-//                        .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
-//                }
+                .sheet(isPresented: .constant(true)) {
+                    ModalView()
+                        .presentationDetents([.height(modalHeight), .large])
+                        .interactiveDismissDisabled(true)
+                        .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
+                }
             
         }
     }
