@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		444720EE2B8F39DB00A8EC81 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444720ED2B8F39DB00A8EC81 /* ListView.swift */; };
 		447AB8A32B8603490027EDC1 /* VegSightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8A22B8603490027EDC1 /* VegSightsApp.swift */; };
 		447AB8A52B8603490027EDC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8A42B8603490027EDC1 /* ContentView.swift */; };
 		447AB8A72B86034B0027EDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 447AB8A62B86034B0027EDC1 /* Assets.xcassets */; };
@@ -16,12 +17,11 @@
 		447AB8B92B873F550027EDC1 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8B82B873F550027EDC1 /* ListModel.swift */; };
 		447AB8BF2B8C944C0027EDC1 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8BE2B8C944C0027EDC1 /* ResultView.swift */; };
 		E6FB450E2B8747A4000D3559 /* AddListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB450D2B8747A4000D3559 /* AddListView.swift */; };
-		E6FB45102B8747D3000D3559 /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB450F2B8747D3000D3559 /* ListItemView.swift */; };
-		E6FB45122B87480D000D3559 /* CheckMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB45112B87480D000D3559 /* CheckMarkView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		444720EC2B8C9C5300A8EC81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		444720ED2B8F39DB00A8EC81 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		447AB89F2B8603490027EDC1 /* VegSights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VegSights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		447AB8A22B8603490027EDC1 /* VegSightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegSightsApp.swift; sourceTree = "<group>"; };
 		447AB8A42B8603490027EDC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,8 +32,6 @@
 		447AB8B82B873F550027EDC1 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
 		447AB8BE2B8C944C0027EDC1 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		E6FB450D2B8747A4000D3559 /* AddListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListView.swift; sourceTree = "<group>"; };
-		E6FB450F2B8747D3000D3559 /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
-		E6FB45112B87480D000D3559 /* CheckMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,8 +87,7 @@
 			children = (
 				447AB8A42B8603490027EDC1 /* ContentView.swift */,
 				447AB8B02B873E5F0027EDC1 /* ModalView.swift */,
-				E6FB450F2B8747D3000D3559 /* ListItemView.swift */,
-				E6FB45112B87480D000D3559 /* CheckMarkView.swift */,
+				444720ED2B8F39DB00A8EC81 /* ListView.swift */,
 				E6FB450D2B8747A4000D3559 /* AddListView.swift */,
 				447AB8B22B873E690027EDC1 /* ScanView.swift */,
 				447AB8BE2B8C944C0027EDC1 /* ResultView.swift */,
@@ -176,8 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6FB45122B87480D000D3559 /* CheckMarkView.swift in Sources */,
-				E6FB45102B8747D3000D3559 /* ListItemView.swift in Sources */,
+				444720EE2B8F39DB00A8EC81 /* ListView.swift in Sources */,
 				447AB8BF2B8C944C0027EDC1 /* ResultView.swift in Sources */,
 				447AB8B12B873E5F0027EDC1 /* ModalView.swift in Sources */,
 				447AB8B32B873E690027EDC1 /* ScanView.swift in Sources */,

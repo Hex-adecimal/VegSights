@@ -4,64 +4,95 @@
 //
 //  Created by Luigi Penza on 22/02/24.
 //
+
 import SwiftUI
 import SwiftData
 
 struct ModalView: View {
     @Environment(\.modelContext) private var modelContext
-    
     @Query var lists: [ListModel]
-    
     @State var showAddView: Bool = false
     
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical) {
-                if lists.isEmpty {
-                    Button("Sample data") {
-                        modelContext.insert(ListModel(name: "Grocery Shopping", items: ["Apple", "Banana", "Mango "]))
-                        modelContext.insert(ListModel(name: "Personal List", items: ["1", "2", "3"]))
-                        modelContext.insert(ListModel(name: "Dinner With Friends", items: ["1", "2", "3"]))
-                    }
-                    Text("Create your personal lists. \nTap the plus button to get started.")
-                } else {
-                    ForEach(lists) { list in
-                        NavigationLink {
-                            ListItemView()
-                        } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                                    .foregroundStyle(.gray)
-                                    .frame(width: 350, height: 80, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            if lists.isEmpty {
+                Text("Create your personal lists. \nTap the plus button to get started.")
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Text("My Lists")
+                                .fontWeight(.bold)
+                                .font(.title)
+                        }
+                        
+                        ToolbarItem() {
+                            Button("Sample data") {
+                                let list1 = ListModel(name: "Grocery Shopping", items: ["Apple"])
+                                list1.addItem(newItem: "Mango")
+                                list1.addItem(newItem: "Banana")
+                                modelContext.insert(list1)
                                 
-                                HStack {
-                                    Text(list.name)
-                                        .foregroundStyle(.black)
-                                    Text(list.date.formatted())
-                                        .foregroundStyle(.black)
-                                    Image(systemName: "chevron.right")
-                                        .foregroundStyle(.accent)
-                                        .padding(.trailing, 0)
-                                }
+                                let list2 = ListModel(name: "Personal List", items: ["Ciao"])
+                                list2.addItem(newItem: "Mango")
+                                list2.addItem(newItem: "Banana")
+                                modelContext.insert(list2)
                                 
+                                let list3 = ListModel(name: "PP", items: ["Ciao"])
+                                list3.addItem(newItem: "Mango")
+                                list3.addItem(newItem: "Banana")
+                                modelContext.insert(list3)
+                            }
+                        }
+                        
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("add", systemImage: "plus") {
+                                showAddView.toggle()
+                            }.sheet(isPresented: $showAddView) {
+                                AddListView()
                             }
                         }
                     }
-                }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text("My Lists")
-                        .fontWeight(.bold)
-                        .font(.title)
+            else {
+                List(lists) { list in
+                    VStack (alignment: .leading) {
+                        NavigationLink(list.name, value: list)
+                        Text(list.date.formatted())
+                            .fontWeight(.light)
+                            .foregroundStyle(.gray)
+                    }
+                    .swipeActions {
+                        Button("Delete", systemImage: "trash", role: .destructive) {
+                            modelContext.delete(list)
+                        }
+                    }
                 }
                 
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("add", systemImage: "plus") {
-                        showAddView.toggle()
-                    }.sheet(isPresented: $showAddView) {
-                        AddListView()
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Text("My Lists")
+                            .fontWeight(.bold)
+                            .font(.title)
                     }
+                    
+                    ToolbarItem() {
+                        Button("Sample data") {
+                            modelContext.insert(ListModel(name: "Grocery Shopping", items: ["Apple", "Banana", "Mango "]))
+                            modelContext.insert(ListModel(name: "Personal List", items: ["1", "2", "3"]))
+                            modelContext.insert(ListModel(name: "Dinner With Friends", items: ["1", "2", "3"]))
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("add", systemImage: "plus") {
+                            showAddView.toggle()
+                        }.sheet(isPresented: $showAddView) {
+                            AddListView()
+                        }
+                    }
+                }
+                .navigationDestination(for: ListModel.self) { list in
+                    @Bindable var list = list
+                    ListView(listName: $list.name)
                 }
             }
         }

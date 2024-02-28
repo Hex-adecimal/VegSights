@@ -20,6 +20,24 @@ final class ListModel{
         self.items = items
         
         self.date = Date()
-        self.checks = [] //TODO: Update
+        self.checks = [false] //TODO: Update
+    }
+    
+    func addItem(newItem: String) {
+        items.append(newItem)
+        checks.append(false)
+    }
+    
+    func deleteItem(at index: Int) {
+        if 0 <= index && index < items.count {
+            items.remove(at: index)
+            checks.remove(at: index)
+        }
+    }
+    
+    func checkToggle(at index: Int) {
+        if 0 <= index && index < items.count {
+            checks[index].toggle()
+        }
     }
 }
