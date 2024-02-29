@@ -29,16 +29,19 @@ struct ModalView: View {
                                 let list1 = ListModel(name: "Grocery Shopping", items: ["Apple"])
                                 list1.addItem(newItem: "Mango")
                                 list1.addItem(newItem: "Banana")
+                                list1.f()
                                 modelContext.insert(list1)
                                 
                                 let list2 = ListModel(name: "Personal List", items: ["Ciao"])
                                 list2.addItem(newItem: "Mango")
                                 list2.addItem(newItem: "Banana")
+                                list2.f()
                                 modelContext.insert(list2)
                                 
                                 let list3 = ListModel(name: "PP", items: ["Ciao"])
                                 list3.addItem(newItem: "Mango")
                                 list3.addItem(newItem: "Banana")
+                                list3.f()
                                 modelContext.insert(list3)
                             }
                         }
@@ -54,20 +57,20 @@ struct ModalView: View {
             }
             else {
                 List(lists) { list in
-                    VStack (alignment: .leading) {
-                        NavigationLink(list.name, value: list)
-                        Text(list.date.formatted())
-                            .fontWeight(.light)
-                            .foregroundStyle(.gray)
-                    }
-                    .swipeActions {
-                        Button("Delete", systemImage: "trash", role: .destructive) {
-                            modelContext.delete(list)
+                    VStack(alignment: .leading) {
+                        NavigationLink(destination: ListView(listName: list.name)) {
+                            Text(list.name)
+                            Text(list.date.formatted())
+                                .fontWeight(.light)
+                                .foregroundStyle(.gray)
+                        }
+                        .swipeActions {
+                            Button("Delete", systemImage: "trash", role: .destructive) {
+                                modelContext.delete(list)
+                            }
                         }
                     }
-                }
-                
-                .toolbar {
+                }.toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Text("My Lists")
                             .fontWeight(.bold)
@@ -89,10 +92,6 @@ struct ModalView: View {
                             AddListView()
                         }
                     }
-                }
-                .navigationDestination(for: ListModel.self) { list in
-                    @Bindable var list = list
-                    ListView(listName: $list.name)
                 }
             }
         }

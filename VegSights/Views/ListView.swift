@@ -10,7 +10,7 @@ import SwiftData
 
 struct ListView: View {
     @Query var lists: [ListModel]
-    @Binding var listName: String
+    var listName: String
     
     var body: some View {
         List(lists) { list in
@@ -37,5 +37,5 @@ struct ListView: View {
 }
 
 #Preview {
-    ListView(listName: .constant("Nome lista"))
+    ListView(listName: "Nome Lista")
 }

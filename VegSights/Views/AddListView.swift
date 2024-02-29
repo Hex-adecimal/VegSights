@@ -40,7 +40,9 @@ struct AddListView: View {
                    
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Done") {
-                            modelContext.insert(ListModel(name: newListName, items: newitems))
+                            let list1 = ListModel(name: newListName, items: newitems)
+                            list1.f()
+                            modelContext.insert(list1)
                             self.presentationMode.wrappedValue.dismiss()
                         }
                     }

@@ -13,7 +13,6 @@ struct ContentView: View {
     private let modalHeight: CGFloat = 100.0
 
     var body: some View {
-        
         NavigationStack {
                 VStack{
                     NavigationLink {
@@ -30,7 +29,6 @@ struct ContentView: View {
                         .interactiveDismissDisabled(true)
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
                 }
-            
         }
     }
 }

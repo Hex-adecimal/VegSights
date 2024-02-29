@@ -20,7 +20,20 @@ final class ListModel{
         self.items = items
         
         self.date = Date()
-        self.checks = [false] //TODO: Update
+        self.checks = [] //TODO: Update
+    }
+    
+    func f() {
+        while items.count != checks.count {
+            checks.append(false)
+        }
+        print("---" + self.name)
+        for item in items {
+            print(item)
+        }
+        for check in checks {
+            print(check)
+        }
     }
     
     func addItem(newItem: String) {
