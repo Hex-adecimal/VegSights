@@ -8,27 +8,34 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
-//    @State private var showSettings = true
-    private let modalHeight: CGFloat = 100.0
+// OCR  OPENAI PROMPT 
 
+struct ContentView: View {
+    
+    private let modalHeight: CGFloat = 120.0
+    @State private var modaleCarina: Bool = true
+    
     var body: some View {
         NavigationStack {
-                VStack{
-                    NavigationLink {
-                        ScanView()
-                    } label: {
-                        CirclesView()
-                    }
-                    Text("Game app for team building")
-                        .padding(50)
+            VStack{
+                NavigationLink {
+                    ScanView()
+                        .onAppear {
+                            self.modaleCarina = false
+                        }
+                        .onDisappear {
+                            self.modaleCarina = true
+                        }
+                } label: {
+                    CirclesView()
                 }
-                .sheet(isPresented: .constant(true)) {
-                    ModalView()
-                        .presentationDetents([.height(modalHeight), .large])
-                        .interactiveDismissDisabled(true)
-                        .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
-                }
+            }
+            .sheet(isPresented: $modaleCarina) {
+                ModalView()
+                    .presentationDetents([.height(modalHeight), .large])
+                    .interactiveDismissDisabled(true)
+                    .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
+            }
         }
     }
 }
@@ -61,7 +68,6 @@ struct CirclesView: View {
             Text("Tap to scan")
                 .font(.title)
                 .fontWeight(.bold)
-//                .fontDesign(.monospaced)
                 .frame(width: 100)
                 .multilineTextAlignment(.center)
                 .foregroundColor(colorScheme == .light ? .white : .black)
@@ -72,15 +78,15 @@ struct CirclesView: View {
     }
     
     func animateCircles() {
-            DispatchQueue.global(qos: .background).async {
-                while true {
-                    withAnimation(.linear(duration: 10.0).repeatForever(autoreverses: false)) {
-                        rotationAngle = 360
-                    }
-                    Thread.sleep(forTimeInterval: 1.0)
+        DispatchQueue.global(qos: .background).async {
+            while true {
+                withAnimation(.linear(duration: 10.0).repeatForever(autoreverses: false)) {
+                    rotationAngle = 360
                 }
+                Thread.sleep(forTimeInterval: 1.0)
             }
         }
+    }
     
 }
 

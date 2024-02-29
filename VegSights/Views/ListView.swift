@@ -9,9 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct ListView: View {
+    
     @Query var lists: [ListModel]
     var listName: String
-    
+
     var body: some View {
         List(lists) { list in
             if list.name == listName {
@@ -30,9 +31,11 @@ struct ListView: View {
                     .onTapGesture(perform: {
                         list.checkToggle(at: index)
                     })
+//                }
                 }
             }
         }
+        .navigationTitle(listName)
     }
 }
 
