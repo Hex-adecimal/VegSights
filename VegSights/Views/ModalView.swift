@@ -47,7 +47,7 @@ struct ModalView: View {
                         }
                     }
                 }
-                .navigationBarTitle("My Lists", displayMode: .automatic)
+                .navigationBarTitle("My Lists 🌶️", displayMode: .automatic)
                 .navigationBarItems(
                     trailing:  Button(action: {
                         showAddView.toggle()

@@ -23,6 +23,7 @@ struct ContentView: View {
                         .resizable()
                         .aspectRatio(geometry.size, contentMode: .fill)
                         .edgesIgnoringSafeArea(.all)
+                        .opacity(0.8)
                     VStack{
                         NavigationLink {
                             ScanView()
@@ -84,8 +85,8 @@ struct CirclesView: View {
 //                .foregroundColor(colorScheme == .light ? .white : .black)
             Image("TapToScan")
                 .resizable()
-                .frame(width: 300, height: 300)
-                .padding(.leading, -50)
+                .frame(width: 180, height: 180)
+//                .padding(.leading, -30)
         }
         .onAppear() {
             animateCircles()
