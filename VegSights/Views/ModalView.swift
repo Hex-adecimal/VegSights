@@ -35,10 +35,16 @@ struct ModalView: View {
                 List(lists) { list in
                     VStack(alignment: .leading) {
                         NavigationLink(destination: ListView(listName: list.name)) {
-                            Text(list.name)
-                            Text(list.date.formatted())
-                                .fontWeight(.light)
-                                .foregroundStyle(.gray)
+                            VStack (alignment: .leading){
+                                Text(list.name)
+                                    .fontWeight(.medium)
+                                Text(list.date.formatted(date: .complete, time: .shortened))
+                                    .foregroundStyle(.gray)
+                                    .font(.caption)
+                                    .padding(.top, -4)
+                            }
+                            
+
                         }
                         .swipeActions {
                             Button("Delete", systemImage: "trash", role: .destructive) {
@@ -47,7 +53,7 @@ struct ModalView: View {
                         }
                     }
                 }
-                .navigationBarTitle("My Lists 🌶️", displayMode: .automatic)
+                .navigationBarTitle("My Lists", displayMode: .automatic)
                 .navigationBarItems(
                     trailing:  Button(action: {
                         showAddView.toggle()
