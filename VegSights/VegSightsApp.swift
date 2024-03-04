@@ -24,6 +24,6 @@ struct VegSightsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }.modelContainer(for: ListModel.self)
+        }/*.modelContainer(for: ListModel.self)*/
     }
 }

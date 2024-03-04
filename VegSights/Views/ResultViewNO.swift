@@ -49,6 +49,7 @@ struct ResultViewNO: View {
                         //  .overlay(
                         //   SpriteView(scene: RainFall(), options: [.allowsTransparency])
                        
+
                         Text(phrase)
                             .font(.headline)
                             .multilineTextAlignment(.leading)
@@ -60,7 +61,6 @@ struct ResultViewNO: View {
                 .ignoresSafeArea()
             }
         }
-        
     }
 }
 class RainFall: SKScene {

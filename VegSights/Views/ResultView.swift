@@ -9,62 +9,74 @@ import SwiftUI
 import SpriteKit
 
 struct ResultView: View {
-    @State private var taskIsComplete = false
-
+    @State
+    private var taskIsComplete: Bool = false
+    
     let phrase: String
     let imageName: String
     
     static let veganPhrases = [
         "Woohoo! Your product is as vegan as a field of sunflowers on a sunny day! 🌻☀️",
         "Your product is 100% animal-friendly and guilt-free! 🎊🌿",
-    //   "Bravo! Your product is so vegan, it's practically doing yoga on a tofu mat! 🧘‍♂️🧘‍♀️",
+        //   "Bravo! Your product is so vegan, it's practically doing yoga on a tofu mat! 🧘‍♂️🧘‍♀️",
         "It's a vegan win! Enjoy guilt-free munching! 🥕😋",
         "Your product is officially vegan-approved! 🌿✅"
-        ]
+    ]
     static let nonVeganPhrases = [
         "Alert! Non-vegan ingredients detected!",
         "No plant-powered goodness here! This product is a no-go for vegans ❌",
-       "Warning: animal ingredients detected! This product doesn't make the vegan cut 🔍",
+        "Warning: animal ingredients detected! This product doesn't make the vegan cut 🔍",
         "Uh-oh! Your product is a meaty no-no for vegans ❌",
         "Whoopsie daisy! This product isn't playing for team vegan 🚫"
-        ]
+    ]
     
     //TODO: Add the case of non-vegan
     init() {
         let randomIndex = Int.random(in: 0..<ResultView.veganPhrases.count)
         self.phrase = ResultView.veganPhrases[randomIndex]
         self.imageName = "peperoncinoSI"
+        self.taskIsComplete = true
     }
-
+    
     var body: some View {
-        NavigationView {
-            VStack {
-                ZStack {
-                    SpriteView(scene: RainFall2(), options: [.allowsTransparency])
-                    VStack {
-                        Image("peperoncinoSI")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                        
-                        Text(phrase)
-                            .font(.headline)
-                            .multilineTextAlignment(.leading)
-                            .padding() 
-                    }
+        VStack {
+            ZStack {
+                SpriteView(scene: RainFall2(), options: [.allowsTransparency])
+                VStack {
+                    Image("peperoncinoSI")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    
+                    Text(phrase)
+                        .font(.headline)
+                        .multilineTextAlignment(.leading)
+                        .padding()
                 }
-                .ignoresSafeArea()
             }
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    NavigationLink(destination: ScanView()) {
-//                        Text("Back")
-//                    }
-//                }
-//            }
+            .ignoresSafeArea()
         }
-        .sensoryFeedback(.success, trigger: taskIsComplete)
+        .sensoryFeedback(.impact, trigger: taskIsComplete)
+        
+        
+        
+        //            .toolbar {
+        //                ToolbarItem(placement: .navigationBarLeading) {
+        //                    NavigationLink(destination: ScanView()) {
+        //                        Text("Back")
+        //                    }
+        //                }
+        //            }
+    }
+    
+}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }
+
+
+
 class RainFall2: SKScene {
 
     override func didMove(to view: SKView) {
