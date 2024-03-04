@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 import Vision
-
+/*
 struct ScanView: View {
     @State private var showCamera = false
     @State private var selectedImage: UIImage?
@@ -104,6 +104,33 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
         self.picker.selectedImage = selectedImage
         self.picker.isPresented.wrappedValue.dismiss()
+    }
+}
+*/
+
+struct ScanView: View {
+    @EnvironmentObject var vm: AppViewModel
+    
+    var body: some View {
+        switch vm.dataScannerAccessStatus {
+        case .notDetermined:
+            Text("notDetermined")
+        case .cameraAccessNotGranted:
+            Text("cameraAccessNotGranted")
+        case .cameraNotAvailable:
+            Text("cameraNotAvailable")
+        case .scannerAvailable:
+            mainView
+        case .scannerNotAvailable:
+            Text("scannerNotAvailable")
+        }
+    }
+    
+    private var mainView: some View {
+        DataScannerView(
+            recognizedItems: $vm.recognizedItem,
+            recognizedDataType: vm.recognizedDataType,
+            recognizesMultipleItems: vm.recognizedMultipleItems)
     }
 }
 

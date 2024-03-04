@@ -8,107 +8,100 @@
 import SwiftUI
 import SwiftData
 
-enum ButtonAnimationPhase: CaseIterable {
-    case beginnig, middle, end
-    
-    var scale: Double {
-        switch self {
-        case .beginnig, .end: 1
-        case .middle: 0.9
-        }
-    }
-    
-    var animation: Animation {
-        switch self {
-        case .beginnig, .end: .bouncy(duration: 1.0)
-        case .middle: .easeIn(duration: 1.0)
-        }
-    }
-}
+// OCR  OPENAI PROMPT
 
 struct ContentView: View {
-    //@Query var lists: [ListModel]
     
-    //@Environment(\.modelContext) var context
-    // context.insert(ListModel(name: "", items: ["", ""])
-    
-    private let modalHeight: CGFloat = 100.0
+    private let modalHeight: CGFloat = 125.0
+    @State private var modaleCarina: Bool = true
     
     var body: some View {
-//        ZStack {
-            //MARK: Background
-//            Rectangle()
-//                .ignoresSafeArea()
-//                .foregroundStyle(.linearGradient(colors: [.orange, .yellow], startPoint: .top, endPoint: .bottom))
-//            
-//            
-//            Text("Ciao")
-            
-            NavigationStack {
-                VStack {
-                    //MARK: Label
-                    Text("Tap to scan")
-                    // Vision
-                        .bold()
-                        .foregroundStyle(.black)
-                        .font(.title2)
-                    // Accessibility
-                        .accessibilityHidden(true)
-                    // Animation
-                    
-                    //MARK: SHAZAM BUTTON
-                    CircleAndLinks()
-                        .frame(width: 200, height: 200)
-                        .phaseAnimator(ButtonAnimationPhase.allCases) { content, phase in
-                            content
-                                .scaleEffect(phase.scale)
-                        } animation: { phase in
-                            phase.animation
+        NavigationStack {
+            GeometryReader { geometry in
+                ZStack {
+                    Image("sfondino")
+                        .resizable()
+                        .aspectRatio(geometry.size, contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                        .opacity(0.8)
+                    VStack{
+                        NavigationLink {
+                            ScanView()
+                                .onAppear {
+                                    self.modaleCarina = false
+                                }
+                                .onDisappear {
+                                    self.modaleCarina = true
+                                }
+                        } label: {
+                            CirclesView()
                         }
-                    
-                    NavigationLink(destination: ScanView()) {
-                                       Text("ScanView")
-                                   }
-                    
+                        
+                        .sheet(isPresented: $modaleCarina) {
+                            ModalView()
+                                .presentationDetents([.height(modalHeight), .large])
+                                .interactiveDismissDisabled(true)
+                                .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
+                        }
+                        
+                    }
                 }
             }
         }
-        //                .sheet(isPresented: .constant(true)) {
-        //                    NavigationStack {
-        //                        ModalView()
-        //                    }
-        //                    .presentationDetents([.height(modalHeight), .large])
-        //                    .interactiveDismissDisabled(true)
-        //                    .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
-    }
-
-//    }
-
-
-private struct CircleAndLinks: View {
-    @State var animating: Bool = false
-    
-    var body: some View {
         
-        ZStack {
-            RoundedRectangle(cornerSize: CGSize(width: 20, height: 10))
-                .fill(.linearGradient(colors: [.white, .gray], startPoint: .bottomLeading, endPoint: .topTrailing))
-                .shadow(radius: 10, y: 10)
-                .cornerRadius(30)
-            //      MARK: Making it for everyone
-            //     .accessibilityLabel("Shazam")
-            //     .accessibilityHint("Tap to listen for a song or hold to auto listen")
-            
-            Image(systemName: "barcode.viewfinder")
-                .resizable()
-                .frame(width: 130, height: 130, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .fontWeight(.light)
-            
-        }
     }
 }
 
-
 #Preview {
     ContentView()
+}
+
+struct CirclesView: View {
+    @Environment(\.colorScheme) var colorScheme
+    @State private var rotationAngle: Double = 0.0
+    
+    var body: some View {
+        ZStack {
+            
+            Circle()
+                .foregroundColor(.orange)
+                .frame(width: 250)
+                .opacity(0.7)
+                .offset(x: -5.0, y: -5.0)
+                .rotationEffect(.degrees(rotationAngle))
+            
+            Circle()
+                .foregroundColor(.orange)
+                .frame(width: 220)
+                .opacity(0.7)
+                .offset(x: 10.0, y: 5.0)
+                .rotationEffect(.degrees(-rotationAngle))
+            
+//            Text("Tap to scan")
+//                .font(.title)
+//                .fontWeight(.bold)
+//                .frame(width: 100)
+//                .multilineTextAlignment(.center)
+//                .foregroundColor(colorScheme == .light ? .white : .black)
+            Image("TapToScan")
+                .resizable()
+                .frame(width: 180, height: 180)
+//                .padding(.leading, -30)
+        }
+        .onAppear() {
+            animateCircles()
+        }
+    }
+    
+    func animateCircles() {
+        DispatchQueue.global(qos: .background).async {
+            while true {
+                withAnimation(.linear(duration: 10.0).repeatForever(autoreverses: false)) {
+                    rotationAngle = 360
+                }
+                Thread.sleep(forTimeInterval: 1.0)
+            }
+        }
+    }
+    
 }

@@ -24,8 +24,10 @@
 		447AB8B92B873F550027EDC1 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8B82B873F550027EDC1 /* ListModel.swift */; };
 		447AB8BF2B8C944C0027EDC1 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447AB8BE2B8C944C0027EDC1 /* ResultView.swift */; };
 		E6FB450E2B8747A4000D3559 /* AddListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB450D2B8747A4000D3559 /* AddListView.swift */; };
-		E6FB45102B8747D3000D3559 /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB450F2B8747D3000D3559 /* ListItemView.swift */; };
-		E6FB45122B87480D000D3559 /* CheckMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB45112B87480D000D3559 /* CheckMarkView.swift */; };
+		E6FB45232B95E093000D3559 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB45222B95E093000D3559 /* ListView.swift */; };
+		E6FB45252B95E0BC000D3559 /* EditListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB45242B95E0BC000D3559 /* EditListView.swift */; };
+		E6FB45292B95E14B000D3559 /* DataScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB45282B95E14B000D3559 /* DataScannerView.swift */; };
+		E6FB452B2B95E178000D3559 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FB452A2B95E178000D3559 /* AppViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,8 +50,10 @@
 		447AB8B82B873F550027EDC1 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
 		447AB8BE2B8C944C0027EDC1 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		E6FB450D2B8747A4000D3559 /* AddListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListView.swift; sourceTree = "<group>"; };
-		E6FB450F2B8747D3000D3559 /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
-		E6FB45112B87480D000D3559 /* CheckMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkView.swift; sourceTree = "<group>"; };
+		E6FB45222B95E093000D3559 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		E6FB45242B95E0BC000D3559 /* EditListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListView.swift; sourceTree = "<group>"; };
+		E6FB45282B95E14B000D3559 /* DataScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScannerView.swift; sourceTree = "<group>"; };
+		E6FB452A2B95E178000D3559 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +122,8 @@
 			children = (
 				447AB8A42B8603490027EDC1 /* ContentView.swift */,
 				447AB8B02B873E5F0027EDC1 /* ModalView.swift */,
-				E6FB450F2B8747D3000D3559 /* ListItemView.swift */,
-				E6FB45112B87480D000D3559 /* CheckMarkView.swift */,
+				E6FB45222B95E093000D3559 /* ListView.swift */,
+				E6FB45242B95E0BC000D3559 /* EditListView.swift */,
 				E6FB450D2B8747A4000D3559 /* AddListView.swift */,
 				447AB8B22B873E690027EDC1 /* ScanView.swift */,
 				447AB8BE2B8C944C0027EDC1 /* ResultView.swift */,
@@ -133,7 +137,9 @@
 		447AB8B52B873E880027EDC1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E6FB45282B95E14B000D3559 /* DataScannerView.swift */,
 				447AB8B82B873F550027EDC1 /* ListModel.swift */,
+				E6FB452A2B95E178000D3559 /* AppViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,10 +219,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6FB45122B87480D000D3559 /* CheckMarkView.swift in Sources */,
 				02C821AE2B91E06600244EF9 /* SchermataDiProva.swift in Sources */,
-				E6FB45102B8747D3000D3559 /* ListItemView.swift in Sources */,
 				447AB8BF2B8C944C0027EDC1 /* ResultView.swift in Sources */,
+				E6FB452B2B95E178000D3559 /* AppViewModel.swift in Sources */,
+				E6FB45232B95E093000D3559 /* ListView.swift in Sources */,
+				E6FB45292B95E14B000D3559 /* DataScannerView.swift in Sources */,
 				447AB8B12B873E5F0027EDC1 /* ModalView.swift in Sources */,
 				447AB8B32B873E690027EDC1 /* ScanView.swift in Sources */,
 				E6FB450E2B8747A4000D3559 /* AddListView.swift in Sources */,
@@ -224,6 +231,7 @@
 				02C821B42B95CC9D00244EF9 /* SchermataDiProva1.swift in Sources */,
 				447AB8A52B8603490027EDC1 /* ContentView.swift in Sources */,
 				02C821A22B8F27D500244EF9 /* ResultViewNO.swift in Sources */,
+				E6FB45252B95E0BC000D3559 /* EditListView.swift in Sources */,
 				447AB8A32B8603490027EDC1 /* VegSightsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
