@@ -1,19 +1,20 @@
 //
-//  AddListView.swift
+//  EditListView.swift
 //  VegSights
 //
-//  Created by Benedetta Beatrice on 22/02/24.
+//  Created by Letizia Granata on 01/03/24.
 //
 
 import SwiftUI
 import SwiftData
 
-struct AddListView: View {
-    @State var isPresented: Bool = true
-    @State var newListName: String = ""
-    @State var newitems: [String] = [""]
+struct EditListView: View {
+    @Query var lists: [ListModel]
+    @Binding var newListName: String
+    @Binding var newitems: [String]
+    
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.presentationMode) private var presentationMode    
+    @Environment(\.presentationMode) private var presentationMode
     @FocusState private var focusedField: Int?
     
     var body: some View {
@@ -23,6 +24,9 @@ struct AddListView: View {
                     TextField("Title", text: $newListName)
                         .textFieldStyle(DefaultTextFieldStyle())
                         .padding()
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.bottom, -20)
                     
                     ForEach(0..<newitems.count, id: \.self) { index in
                         TextField("Item \(index + 1)", text: $newitems[index])
@@ -43,14 +47,14 @@ struct AddListView: View {
                     
                 }
             }
-            .navigationBarTitle("Create a List", displayMode: .inline)
+            .navigationBarTitle("Edit this list", displayMode: .inline)
             .navigationBarItems(
-                leading: Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "chevron.left")
-                },
                 trailing: Button(action: {
+                    for list in lists {
+                        if list.name == newListName {
+                            modelContext.delete(list)
+                        }
+                    }
                     let list1 = ListModel(name: newListName, items: newitems)
                     list1.f()
                     modelContext.insert(list1)
@@ -62,10 +66,9 @@ struct AddListView: View {
             
         }
     }
-}
 
+}
 
 #Preview {
-    AddListView()
+    EditListView(newListName: .constant(""), newitems: .constant([""]))
 }
-
