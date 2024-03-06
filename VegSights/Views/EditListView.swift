@@ -45,6 +45,7 @@ struct EditListView: View {
                     
                     Button(action: {
                         newitems.append("")
+                        checks.append(false)
                         focusedField = newitems.count - 1
                     }) {
                         Text("Add Item")

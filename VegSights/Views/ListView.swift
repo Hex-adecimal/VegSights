@@ -32,8 +32,12 @@ struct ListView: View {
                             Text(item)
                         }
                     }
+                    .onDisappear() {
+                        selectedChecks = list.checks
+                    }
                     .onAppear(){
                         selectedList = list.items
+                        selectedChecks = list.checks
                     }
                     .onTapGesture(perform: {
                         list.checkToggle(at: index)
