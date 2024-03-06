@@ -13,7 +13,7 @@ struct ListView: View {
     @Query var lists: [ListModel]
     @State var listName: String
     @State private var selectedList = [""]
-    
+    @State private var selectedChecks: [Bool] = []
 
     var body: some View {
         List(lists) { list in
@@ -37,20 +37,21 @@ struct ListView: View {
                     }
                     .onTapGesture(perform: {
                         list.checkToggle(at: index)
+                        selectedChecks = list.checks
                     })
                 }
             }
         }
         .navigationBarTitle(listName)
         .navigationBarItems(trailing:
-                                NavigationLink(
-                                    destination: EditListView(newListName: $listName, newitems: $selectedList)){
-                                        Text("Edit list")
-                                }
-                        )
+                                        NavigationLink(
+                                            destination: EditListView(newListName: $listName, newitems: $selectedList , oldListName: $listName, checks: $selectedChecks)){
+                                                Text("Edit list")
+                                        }
+                                )
     }
 }
 
-#Preview {
-    ListView(listName: "Nome Lista")
-}
+//#Preview {
+//    ListView(listName: "Nome Lista", selectedChecks: [false])
+//}

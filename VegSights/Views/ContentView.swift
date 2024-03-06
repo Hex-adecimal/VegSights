@@ -13,7 +13,9 @@ import SwiftData
 struct ContentView: View {
     
     private let modalHeight: CGFloat = 125.0
-    @State private var modaleCarina: Bool = true
+    //    @State private var modaleCarina: Bool = true
+    @State private var isPresented = false
+    
     
     var body: some View {
         NavigationStack {
@@ -25,24 +27,44 @@ struct ContentView: View {
                         .edgesIgnoringSafeArea(.all)
                         .opacity(0.8)
                     VStack{
+                        Spacer()
                         NavigationLink {
                             ScanView()
-                                .onAppear {
-                                    self.modaleCarina = false
-                                }
-                                .onDisappear {
-                                    self.modaleCarina = true
-                                }
+                            //                                .onAppear {
+                            //                                    self.modaleCarina = false
+                            //                                }
+                            //                                .onDisappear {
+                            //                                    self.modaleCarina = true
+                            //                                }
                         } label: {
                             CirclesView()
                         }
-                        
-                        .sheet(isPresented: $modaleCarina) {
+                        Spacer()
+                        Button(action: {
+                            isPresented.toggle()
+                        }, label: {
+                            Text("Go to your shopping lists!")
+                                .fontWeight(.bold)
+                                .foregroundStyle(.white)
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                        .fill(.orange)
+                                        .opacity(0.8)
+                                        .shadow(radius: 2)
+                                )
+                        })
+                        .fullScreenCover(isPresented: $isPresented, content: {
                             ModalView()
-                                .presentationDetents([.height(modalHeight), .large])
-                                .interactiveDismissDisabled(true)
-                                .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
-                        }
+                        })
+                        .padding(.top, -150)
+                        
+                        //                        .sheet(isPresented: $modaleCarina) {
+                        //                            ModalView()
+                        //                                .presentationDetents([.height(modalHeight), .large])
+                        //                                .interactiveDismissDisabled(true)
+                        //                                .presentationBackgroundInteraction(.enabled(upThrough: .height(modalHeight)))
+                        //                        }
                         
                     }
                 }
@@ -77,16 +99,16 @@ struct CirclesView: View {
                 .offset(x: 10.0, y: 5.0)
                 .rotationEffect(.degrees(-rotationAngle))
             
-//            Text("Tap to scan")
-//                .font(.title)
-//                .fontWeight(.bold)
-//                .frame(width: 100)
-//                .multilineTextAlignment(.center)
-//                .foregroundColor(colorScheme == .light ? .white : .black)
+            //            Text("Tap to scan")
+            //                .font(.title)
+            //                .fontWeight(.bold)
+            //                .frame(width: 100)
+            //                .multilineTextAlignment(.center)
+            //                .foregroundColor(colorScheme == .light ? .white : .black)
             Image("TapToScan")
                 .resizable()
                 .frame(width: 180, height: 180)
-//                .padding(.leading, -30)
+            //                .padding(.leading, -30)
         }
         .onAppear() {
             animateCircles()

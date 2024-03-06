@@ -9,6 +9,8 @@ import SwiftUI
 import SpriteKit
 
 struct ResultView: View {
+    @State private var showingChildView = false
+
     @State
     private var taskIsComplete: Bool = false
     
@@ -54,18 +56,19 @@ struct ResultView: View {
                 }
             }
             .ignoresSafeArea()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink(destination: ContentView()) {
+                        Text("Back")
+                    }
+                }
+            }
         }
-        .sensoryFeedback(.impact, trigger: taskIsComplete)
+//        .sensoryFeedback(.impact, trigger: taskIsComplete)
         
         
         
-        //            .toolbar {
-        //                ToolbarItem(placement: .navigationBarLeading) {
-        //                    NavigationLink(destination: ScanView()) {
-        //                        Text("Back")
-        //                    }
-        //                }
-        //            }
+                   
     }
     
 }

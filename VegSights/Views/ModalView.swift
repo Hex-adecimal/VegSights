@@ -12,6 +12,7 @@ struct ModalView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \ListModel.date, order: .reverse) var lists: [ListModel]
     @State var showAddView: Bool = false
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
@@ -21,14 +22,24 @@ struct ModalView: View {
                     .foregroundStyle(.gray)
                     .navigationBarTitle("My Lists", displayMode: .automatic)
                     .navigationBarItems(
-                        trailing:  Button(action: {
+                        leading: Button(action: {
+                            dismiss()
+                        }) {
+                            HStack{
+                                Image(systemName: "chevron.left")
+                                Text("Back")
+                            }
+                            
+                        },
+                        trailing: Button(action: {
                             showAddView.toggle()
                         }) {
                             Image(systemName: "plus")
                         }
                             .sheet(isPresented: $showAddView) {
                                 AddListView()
-                            })
+                            }
+                    )
             }
             else {
                 List(lists) { list in
@@ -43,7 +54,7 @@ struct ModalView: View {
                                     .padding(.top, -4)
                             }
                             
-
+                            
                         }
                         .swipeActions {
                             Button("Delete", systemImage: "trash", role: .destructive) {
@@ -53,8 +64,26 @@ struct ModalView: View {
                     }
                 }
                 .navigationBarTitle("My Lists", displayMode: .automatic)
+                //                .navigationBarItems(
+                //                    trailing:  Button(action: {
+                //                        showAddView.toggle()
+                //                    }) {
+                //                        Image(systemName: "plus")
+                //                    }
+                //                        .sheet(isPresented: $showAddView) {
+                //                            AddListView()
+                //                        }
+                //                )
                 .navigationBarItems(
-                    trailing:  Button(action: {
+                    leading: Button(action: {
+                        dismiss()
+                    }) {
+                        HStack{
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                    },
+                    trailing: Button(action: {
                         showAddView.toggle()
                     }) {
                         Image(systemName: "plus")
@@ -63,6 +92,7 @@ struct ModalView: View {
                             AddListView()
                         }
                 )
+                
             }
         }
     }

@@ -23,6 +23,7 @@ import SwiftData
 struct VegSightsApp: App {
     @StateObject private var vm = AppViewModel()
     
+ 
     
     var body: some Scene {
         WindowGroup {

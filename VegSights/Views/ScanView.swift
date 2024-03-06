@@ -8,105 +8,6 @@
 import SwiftUI
 import PhotosUI
 import Vision
-/*
-struct ScanView: View {
-    @State private var showCamera = false
-    @State private var selectedImage: UIImage?
-    @State var image: UIImage?
-    
-    func recognizeTextHandler(request: VNRequest, error: Error?) {
-        guard let observations =
-                request.results as? [VNRecognizedTextObservation] else {
-            return
-        }
-        let recognizedStrings = observations.compactMap { observation in
-            // Return the string of the top VNRecognizedText instance.
-            return observation.topCandidates(1).first?.string
-        }
-        
-        // Process the recognized strings.
-        print(recognizedStrings)
-    }
-    
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .ignoresSafeArea()
-                .foregroundStyle(.black)
-            
-            VStack {
-                if let selectedImage{
-                    Image(uiImage: selectedImage)
-                        .resizable()
-                        .scaledToFit()
-                }
-                
-                Button("Open camera") {
-                    self.showCamera.toggle()
-                    
-                    // Get the CGImage on which to perform requests.
-                    guard let cgImage = selectedImage?.cgImage else { return }
-
-
-                    // Create a new image-request handler.
-                    let requestHandler = VNImageRequestHandler(cgImage: cgImage)
-                    
-
-                    // Create a new request to recognize text.
-                    let request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-                   // request.recognitionLevel = .fast
-
-                    do {
-                        // Perform the text-recognition request.
-                        try requestHandler.perform([request])
-                    } catch {
-                        print("Unable to perform the requests: \(error).")
-                    }
-                }
-                .fullScreenCover(isPresented: self.$showCamera) {
-                    accessCameraView(selectedImage: self.$selectedImage)
-                }
-            }
-        }
-    }
-}
-
-struct accessCameraView: UIViewControllerRepresentable {
-    @Binding var selectedImage: UIImage?
-    @Environment(\.presentationMode) var isPresented
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = true
-        imagePicker.delegate = context.coordinator
-        return imagePicker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
-        
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(picker: self)
-    }
-}
-
-// Coordinator will help to preview the selected image in the View.
-class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    var picker: accessCameraView
-    
-    init(picker: accessCameraView) {
-        self.picker = picker
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let selectedImage = info[.originalImage] as? UIImage else { return }
-        self.picker.selectedImage = selectedImage
-        self.picker.isPresented.wrappedValue.dismiss()
-    }
-}
-*/
 
 struct ScanView: View {
     @EnvironmentObject var vm: AppViewModel
@@ -126,11 +27,45 @@ struct ScanView: View {
         }
     }
     
+    private func isVegan(_ inputString: String) -> Bool{
+        let meatKeywords = ["suino", "carne", "manzo", "maiale", "pollo", "agnello", "pesce", "latte", "formaggio", "burro", "panna", "yogurt", "uova", "albume", "tuorlo", "gelatina", "caseina", "siero del latte", "lattosio", "miele", "collagene", "miele", "cera d'api", "glicerina", "lanolina", "acido stearico", "gelatina", "colla animale", "e120", "estratto di cochi", "olio di pesce", "tutti i tipi di carne e derivati", "fonduta di carne", "brodo di carne","pig", "meat", "beef", "pork", "chicken", "lamb", "fish", "milk", "cheese", "butter", "cream", "yogurt", "eggs", "egg white", "egg yolk", "gelatin", "casein", "whey", "lactose", "honey", "collagen", "honey", "beeswax", "glycerin", "lanolin", "stearic acid", "gelatin", "animal glue", "E120 (cochineal)", "fish oil", "all types of meat and derivatives", "meat fondue", "meat broth"]
+        
+            let lowercasedString = inputString.lowercased()
+            let words = lowercasedString.components(separatedBy: CharacterSet.whitespacesAndNewlines)
+
+            for word in words {
+                for keyword in meatKeywords {
+                    if word.contains(keyword) {
+                        return true
+                    }
+                }
+            }
+
+            return false
+        }
+    
     private var mainView: some View {
-        DataScannerView(
-            recognizedItems: $vm.recognizedItem,
-            recognizedDataType: vm.recognizedDataType,
-            recognizesMultipleItems: vm.recognizedMultipleItems)
+        NavigationStack {
+            DataScannerView(
+                recognizedItems: $vm.recognizedItem,
+                recognizedDataType: vm.recognizedDataType,
+                recognizesMultipleItems: vm.recognizedMultipleItems)
+            ScrollView {
+                ForEach(vm.recognizedItem) { item in
+                    switch item {
+                    case .text(let text):
+                        Text(text.transcript)
+                            .foregroundStyle(isVegan(text.transcript) ? .red : .green)
+                        
+                    case .barcode(let barcode):
+                        Text (barcode.payloadStringValue ?? "Unknown barcode")
+                    @unknown default:
+                        Text("Unknown")
+                    }
+                
+                }
+            }
+        }
     }
 }
 

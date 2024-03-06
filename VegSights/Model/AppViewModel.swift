@@ -5,6 +5,13 @@
 //  Created by Benedetta Beatrice on 04/03/24.
 //
 
+//
+//  AppViewModel.swift
+//  VegSights
+//
+//  Created by Luigi Penza on 01/03/24.
+//
+
 import Foundation
 import AVKit
 import SwiftUI

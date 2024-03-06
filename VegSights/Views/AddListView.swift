@@ -23,6 +23,9 @@ struct AddListView: View {
                     TextField("Title", text: $newListName)
                         .textFieldStyle(DefaultTextFieldStyle())
                         .padding()
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.bottom, -20)
                     
                     ForEach(0..<newitems.count, id: \.self) { index in
                         TextField("Item \(index + 1)", text: $newitems[index])

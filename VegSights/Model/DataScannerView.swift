@@ -2,7 +2,7 @@
 //  DataScannerView.swift
 //  VegSights
 //
-//  Created by Benedetta Beatrice on 04/03/24.
+//  Created by Luigi Penza on 01/03/24.
 //
 
 import Foundation

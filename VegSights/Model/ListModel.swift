@@ -23,6 +23,14 @@ final class ListModel{
         self.checks = [] //TODO: Update
     }
     
+    init(name: String, items: [String], checks: [Bool]) {
+            self.name = name
+            self.items = items
+            
+            self.date = Date()
+            self.checks = checks
+    }
+    
     func f() {
         while items.count != checks.count {
             checks.append(false)

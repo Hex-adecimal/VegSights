@@ -10,10 +10,12 @@ import SwiftData
 
 struct EditListView: View {
     @Query var lists: [ListModel]
+    
     @Binding var newListName: String
     @Binding var newitems: [String]
-//    @Binding var checkedState: [Bool]
-
+    @Binding var oldListName: String
+    
+    @Binding var checks: [Bool]
     
     @Environment(\.modelContext) private var modelContext
     @Environment(\.presentationMode) private var presentationMode
@@ -33,6 +35,8 @@ struct EditListView: View {
                     ForEach(0..<newitems.count, id: \.self) { index in
                         TextField("Item \(index + 1)", text: $newitems[index])
                             .textFieldStyle(DefaultTextFieldStyle())
+                            .foregroundColor(checks[index] ? .gray : .black)
+                            .strikethrough(checks[index])
                             .id(index)
                             .focused($focusedField, equals: index)
                             .padding(.leading, 17)
@@ -53,11 +57,12 @@ struct EditListView: View {
             .navigationBarItems(
                 trailing: Button(action: {
                     for list in lists {
-                        if list.name == newListName {
+                        if list.name == oldListName {
+//                            checks = list.checks
                             modelContext.delete(list)
                         }
                     }
-                    let list1 = ListModel(name: newListName, items: newitems)
+                    let list1 = ListModel(name: newListName, items: newitems, checks: checks)
                     list1.f()
                     modelContext.insert(list1)
                     self.presentationMode.wrappedValue.dismiss()
@@ -68,9 +73,9 @@ struct EditListView: View {
             
         }
     }
-
+    
 }
 
 #Preview {
-    EditListView(newListName: .constant(""), newitems: .constant([""]))
+    EditListView(newListName: .constant(""), newitems: .constant([""]), oldListName: .constant(""), checks: .constant([false]))
 }
